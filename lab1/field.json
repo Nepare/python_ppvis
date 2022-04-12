@@ -1,0 +1,32 @@
+{
+  "0": {
+    "id": 2,
+    "mods": 0.0,
+    "harvest_progress": 2,
+    "growth_progress": 6,
+    "is_droughted": false,
+    "weeded": false,
+    "diseases": false,
+    "has_colorado_beatle": false
+  },
+  "1": {
+    "id": 1,
+    "mods": 0.0,
+    "harvest_progress": 3,
+    "growth_progress": 6,
+    "is_droughted": true,
+    "weeded": true,
+    "diseases": false,
+    "has_colorado_beatle": false
+  },
+  "2": {
+    "id": 1,
+    "mods": 0.5,
+    "harvest_progress": 2,
+    "growth_progress": 6,
+    "is_droughted": true,
+    "weeded": false,
+    "diseases": false,
+    "has_colorado_beatle": false
+  }
+}
