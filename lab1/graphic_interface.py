@@ -81,6 +81,7 @@ def draw_interface():
 
 def next_turn():
     player.age_all()
+    player.storage.export_warehouse()
     Events.start_disasters(player)
     visual_warehouse.initial_import(player)
     visual_garden.initial_import(player)
@@ -89,7 +90,6 @@ def next_turn():
 def button_control():
     button_pressed = False
 
-    pressed_keys = pygame.key.get_pressed()
     mouse_x = pygame.mouse.get_pos()[0]
     mouse_y = pygame.mouse.get_pos()[1]
     mouse_pressed = pygame.mouse.get_pressed()[0]
@@ -98,6 +98,41 @@ def button_control():
         next_turn()
         pygame.draw.rect(DISPLAYSURF, GREEN, (950, 505 + 97.5 * 2, 1190 - 950, 90), 5)
         button_pressed = True
+
+    if 950 <= mouse_x <= 1070 and 10 <= mouse_y <= 130 and mouse_pressed:
+        player.add_plant_based_on_id(0)
+        next_turn()
+        button_pressed = True
+    if 950 <= mouse_x <= 1070 and 130 <= mouse_y <= 250 and mouse_pressed:
+        player.add_plant_based_on_id(1)
+        next_turn()
+        button_pressed = True
+    if 950 <= mouse_x <= 1070 and 250 <= mouse_y <= 370 and mouse_pressed:
+        player.add_plant_based_on_id(2)
+        next_turn()
+        button_pressed = True
+    if 950 <= mouse_x <= 1070 and 370 <= mouse_y <= 490 and mouse_pressed:
+        player.add_plant_based_on_id(3)
+        next_turn()
+        button_pressed = True
+
+    if 1070 <= mouse_x <= 1185 and 10 <= mouse_y <= 130 and mouse_pressed:
+        player.add_plant_based_on_id(4)
+        next_turn()
+        button_pressed = True
+    if 1070 <= mouse_x <= 1185 and 130 <= mouse_y <= 250 and mouse_pressed:
+        player.add_plant_based_on_id(5)
+        next_turn()
+        button_pressed = True
+    if 1070 <= mouse_x <= 1185 and 250 <= mouse_y <= 370 and mouse_pressed:
+        player.add_plant_based_on_id(6)
+        next_turn()
+        button_pressed = True
+    if 1070 <= mouse_x <= 1185 and 370 <= mouse_y <= 490 and mouse_pressed:
+        player.add_plant_based_on_id(7)
+        next_turn()
+        button_pressed = True
+
     if event.type == pygame.KEYDOWN:
         if event.key == pygame.K_SPACE:
             next_turn()
@@ -106,27 +141,41 @@ def button_control():
         if event.key == pygame.K_1:
             player.add_plant_based_on_id(0)
             next_turn()
+            button_pressed = True
         if event.key == pygame.K_2:
             player.add_plant_based_on_id(1)
             next_turn()
+            button_pressed = True
         if event.key == pygame.K_3:
             player.add_plant_based_on_id(2)
             next_turn()
+            button_pressed = True
         if event.key == pygame.K_4:
             player.add_plant_based_on_id(3)
             next_turn()
+            button_pressed = True
         if event.key == pygame.K_5:
             player.add_plant_based_on_id(4)
             next_turn()
+            button_pressed = True
         if event.key == pygame.K_6:
             player.add_plant_based_on_id(5)
             next_turn()
+            button_pressed = True
         if event.key == pygame.K_7:
             player.add_plant_based_on_id(6)
             next_turn()
+            button_pressed = True
         if event.key == pygame.K_8:
             player.add_plant_based_on_id(7)
             next_turn()
+            button_pressed = True
+        if event.key == pygame.K_ESCAPE:
+            player.storage.nullify_warehouse()
+            player.nullify_field()
+            player.export_plants()
+            next_turn()
+
     return button_pressed
 
 
