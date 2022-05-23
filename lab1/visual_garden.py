@@ -40,7 +40,7 @@ class VisualGarden:
             if 0 <= current_plant.id <= 3:
                 current_visual_plant.stage = current_plant.growth_progress
             if 4 <= current_plant.id <= 7:
-                current_visual_plant.stage = current_plant.harvest_progress
+                current_visual_plant.stage = current_plant.harvest_progress + 1
             current_visual_plant.update_texture()
             self.add_plant(current_visual_plant)
 
@@ -52,5 +52,5 @@ class VisualGarden:
             row = i // 6
             column = i % 6
             if row < 2:
-                self.content[i].rect.midbottom = ((column + 1) * 154 - 80 + 10, (row + 1) * 240 + 10)
+                self.content[i].rect.midbottom = ((column + 1) * 154 - 80 + 10, (row + 1) * 240 + 10 - (row * 100))
                 self.content[i].draw(surface)

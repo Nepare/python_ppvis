@@ -54,7 +54,7 @@ def draw_interface():
 
     pygame.draw.rect(DISPLAYSURF, BLACK, (10, 505, 935 - 10, 800 - 500 - 15), 5)
     for i in range(7):
-        pygame.draw.line(DISPLAYSURF, BLACK, (10 + (i + 1) * 115.625, 505), (10 + (i + 1) * 115.625, 785), 5)
+        pygame.draw.line(DISPLAYSURF, BLACK, (10 + (i + 1) * 115.625, 505), (10 + (i + 1) * 115.625, 785), 10)
 
     for i in range(3):
         pygame.draw.rect(DISPLAYSURF, BLACK, (950, 505 + 97.5 * i, 1190 - 950, 90), 5)
@@ -73,6 +73,11 @@ def draw_interface():
     DISPLAYSURF.blit(watering_texture, watering_rect)
     DISPLAYSURF.blit(skip_texture, skip_rect)
 
+    hardwood_texture = pygame.transform.scale(pygame.image.load("lab1\\assets\\textures\\hardwood.png"), (111.25, 275))
+    for i in range(8):
+        draw_floor = hardwood_texture.get_rect()
+        draw_floor.topleft = (15 + i * 115, 510)
+        DISPLAYSURF.blit(hardwood_texture, draw_floor)
 
 def next_turn():
     player.age_all()
@@ -81,25 +86,61 @@ def next_turn():
     visual_garden.initial_import(player)
 
 
-def gameloop():
-    DISPLAYSURF.fill(WHITE)
-    draw_interface()
+def button_control():
+    button_pressed = False
 
     pressed_keys = pygame.key.get_pressed()
     mouse_x = pygame.mouse.get_pos()[0]
     mouse_y = pygame.mouse.get_pos()[1]
     mouse_pressed = pygame.mouse.get_pressed()[0]
 
-    if pressed_keys[K_SPACE] or (950 <= mouse_x <= 1190 and 505 + 195 <= mouse_y <= 505 + 195 + 90 and mouse_pressed):
+    if 950 <= mouse_x <= 1190 and 505 + 195 <= mouse_y <= 505 + 195 + 90 and mouse_pressed:
+        next_turn()
         pygame.draw.rect(DISPLAYSURF, GREEN, (950, 505 + 97.5 * 2, 1190 - 950, 90), 5)
-        next_turn()
-    if pressed_keys[K_1]:
-        player.add_plant_based_on_id(0)
-        next_turn()
+        button_pressed = True
+    if event.type == pygame.KEYDOWN:
+        if event.key == pygame.K_SPACE:
+            next_turn()
+            pygame.draw.rect(DISPLAYSURF, GREEN, (950, 505 + 97.5 * 2, 1190 - 950, 90), 5)
+            button_pressed = True
+        if event.key == pygame.K_1:
+            player.add_plant_based_on_id(0)
+            next_turn()
+        if event.key == pygame.K_2:
+            player.add_plant_based_on_id(1)
+            next_turn()
+        if event.key == pygame.K_3:
+            player.add_plant_based_on_id(2)
+            next_turn()
+        if event.key == pygame.K_4:
+            player.add_plant_based_on_id(3)
+            next_turn()
+        if event.key == pygame.K_5:
+            player.add_plant_based_on_id(4)
+            next_turn()
+        if event.key == pygame.K_6:
+            player.add_plant_based_on_id(5)
+            next_turn()
+        if event.key == pygame.K_7:
+            player.add_plant_based_on_id(6)
+            next_turn()
+        if event.key == pygame.K_8:
+            player.add_plant_based_on_id(7)
+            next_turn()
+    return button_pressed
+
+
+def gameloop():
+    DISPLAYSURF.fill(WHITE)
+    draw_interface()
+
+    button_pressed = button_control()
 
     visual_warehouse.display_warehouse(DISPLAYSURF)
     visual_garden.display_garden(DISPLAYSURF)
     pygame.display.update()
+    if button_pressed:
+        time.sleep(0.05)
     FPS.tick(60)
 
 

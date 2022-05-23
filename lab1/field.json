@@ -1,8 +1,8 @@
 {
   "0": {
     "id": 0,
-    "mods": 0.25,
-    "harvest_progress": 2,
+    "mods": 0.0,
+    "harvest_progress": 1,
     "growth_progress": 5,
     "is_droughted": false,
     "weeded": true,
@@ -11,22 +11,112 @@
   },
   "1": {
     "id": 0,
-    "mods": 1.05,
-    "harvest_progress": 1,
-    "growth_progress": 5,
-    "is_droughted": false,
-    "weeded": false,
-    "diseases": false,
-    "has_colorado_beatle": false
-  },
-  "2": {
-    "id": 0,
-    "mods": 0.85,
+    "mods": 0.0,
     "harvest_progress": 0,
     "growth_progress": 5,
     "is_droughted": false,
     "weeded": true,
     "diseases": false,
+    "has_colorado_beatle": false
+  },
+  "2": {
+    "id": 0,
+    "mods": 0.0,
+    "harvest_progress": 2,
+    "growth_progress": 5,
+    "is_droughted": false,
+    "weeded": true,
+    "diseases": false,
+    "has_colorado_beatle": false
+  },
+  "3": {
+    "id": 0,
+    "mods": 0.0,
+    "harvest_progress": 0,
+    "growth_progress": 5,
+    "is_droughted": false,
+    "weeded": true,
+    "diseases": false,
+    "has_colorado_beatle": false
+  },
+  "4": {
+    "id": 4,
+    "mods": 0.0,
+    "harvest_progress": 0,
+    "growth_progress": 0,
+    "is_droughted": false,
+    "weeded": true,
+    "diseases": false,
+    "has_colorado_beatle": true
+  },
+  "5": {
+    "id": 6,
+    "mods": 0.0,
+    "harvest_progress": 0,
+    "growth_progress": 0,
+    "is_droughted": false,
+    "weeded": true,
+    "diseases": false,
+    "has_colorado_beatle": false
+  },
+  "6": {
+    "id": 7,
+    "mods": 0.0,
+    "harvest_progress": 1,
+    "growth_progress": 0,
+    "is_droughted": false,
+    "weeded": true,
+    "diseases": false,
+    "has_colorado_beatle": false
+  },
+  "7": {
+    "id": 1,
+    "mods": 0.0,
+    "harvest_progress": 1,
+    "growth_progress": 6,
+    "is_droughted": false,
+    "weeded": true,
+    "diseases": true,
+    "has_colorado_beatle": false
+  },
+  "8": {
+    "id": 2,
+    "mods": 0.0,
+    "harvest_progress": 0,
+    "growth_progress": 6,
+    "is_droughted": false,
+    "weeded": true,
+    "diseases": false,
+    "has_colorado_beatle": false
+  },
+  "9": {
+    "id": 3,
+    "mods": 0.0,
+    "harvest_progress": 1,
+    "growth_progress": 5,
+    "is_droughted": false,
+    "weeded": true,
+    "diseases": true,
+    "has_colorado_beatle": false
+  },
+  "10": {
+    "id": 4,
+    "mods": 0.0,
+    "harvest_progress": 0,
+    "growth_progress": 0,
+    "is_droughted": false,
+    "weeded": true,
+    "diseases": false,
+    "has_colorado_beatle": true
+  },
+  "11": {
+    "id": 5,
+    "mods": 0.0,
+    "harvest_progress": 2,
+    "growth_progress": 0,
+    "is_droughted": false,
+    "weeded": true,
+    "diseases": true,
     "has_colorado_beatle": false
   }
 }
