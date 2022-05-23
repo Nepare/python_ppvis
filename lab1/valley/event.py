@@ -1,7 +1,5 @@
 from .game import GameMaster
 import random
-import json
-import os
 import numpy as np
 
 
@@ -12,51 +10,28 @@ class Events:  # случайное событие, не зависящее от
     rainy = False
     idDisease = -1
     num_disease = 0
-    event = {
-        'Засуха': False,
-        'Дождь': False
-    }
-
-    working_directory = os.getcwd()
-    file_path = working_directory + '/settings.json'
-
-    with open(file_path, 'r') as f:
-        event = json.loads(f.read())
-        f.close()
 
     @staticmethod
     def drought_start(target: GameMaster):  # бьёт по всем
-        if not Events.event["Засуха"]:
-            print("Начало засухи!")
-            Events.drought = True
-            Events.event['Засуха'] = True
-            working_directory = os.getcwd()
-            file_path = working_directory + '/settings.json'
-            with open(file_path, 'w', encoding='utf-8') as f:
-                json.dump(Events.event, f, ensure_ascii=False, indent=2)
-            for x in target.field.plants:
-                if x.mods > 0.5:
-                    x.mods -= 0.5
-                    x.mods = np.around(x.mods, 2)
-                    x.is_droughted = True
-                else:
-                    x.mods = 0.0
+        print("Начало засухи!")
+        Events.drought = True
+        for x in target.field.plants:
+            if x.mods > 0.5:
+                x.mods -= 0.5
+                x.mods = np.around(x.mods, 2)
+                x.is_droughted = True
+            else:
+                x.mods = 0.0
 
     @staticmethod
     def drought_end(target: GameMaster):  # бьёт по всем
-        if Events.event["Засуха"]:
-            Events.drought = False
-            Events.event['Засуха'] = False
-            working_directory = os.getcwd()
-            file_path = working_directory + '/settings.json'
-            with open(file_path, 'w', encoding='utf-8') as f:
-                json.dump(Events.event, f, ensure_ascii=False, indent=2)
-            print("Конец засухи!")
-            for x in target.field.plants:
-                if x.is_droughted:
-                    x.mods += 0.5
-                    x.mods = np.around(x.mods, 3)
-                    x.is_droughted = False
+        Events.drought = False
+        print("Конец засухи!")
+        for x in target.field.plants:
+            if x.is_droughted:
+                x.mods += 0.5
+                x.mods = np.around(x.mods, 3)
+                x.is_droughted = False
 
     @staticmethod
     def colorado_beatle_start(target: GameMaster):  # бьёт по картошке
@@ -85,31 +60,19 @@ class Events:  # случайное событие, не зависящее от
 
     @staticmethod
     def rain_start(target: GameMaster):
-        if not Events.event["Дождь"]:
-            print("Пошёл дождь.")
-            Events.rainy = True
-            Events.event['Дождь'] = True
-            working_directory = os.getcwd()
-            file_path = working_directory + '/settings.json'
-            with open(file_path, 'w', encoding='utf-8') as f:
-                json.dump(Events.event, f, ensure_ascii=False, indent=2)
-            for x in target.field.plants:
-                x.mods += 0.05
-                x.mods = np.around(x.mods, 3)
+        print("Пошёл дождь.")
+        Events.rainy = True
+        for x in target.field.plants:
+            x.mods += 0.05
+            x.mods = np.around(x.mods, 3)
 
     @staticmethod
     def rain_end(target: GameMaster):
-        if Events.event["Дождь"]:
-            print("Конец дождя.")
-            Events.rainy = False
-            Events.event['Дождь'] = False
-            working_directory = os.getcwd()
-            file_path = working_directory + '/settings.json'
-            with open(file_path, 'w', encoding='utf-8') as f:
-                json.dump(Events.event, f, ensure_ascii=False, indent=2)
-            for x in target.field.plants:
-                x.mods -= 0.05
-                x.mods = np.around(x.mods, 3)
+        print("Конец дождя.")
+        Events.rainy = False
+        for x in target.field.plants:
+            x.mods -= 0.05
+            x.mods = np.around(x.mods, 3)
 
     @staticmethod
     def disease_start(target: GameMaster):
