@@ -52,3 +52,4 @@ class VisualWarehouse:
     def display_warehouse(self, surface):
         for x in self.content:
             x.draw(surface)
+

@@ -42,6 +42,7 @@ class Warehouse:  # Склад, тут будем хранить кол-во в�
             print("Капуста: ", self.house.get("Капуста"))
         if self.house.get("Перец") > 0:
             print("Перец: ", self.house.get("Перец"))
+        self.export_warehouse()
 
     def export_warehouse(self):
         with open(r'D:\Projects\2course\ppvis\sem2\laba1\lab1\warehouse.json', 'w', encoding='utf-8') as f:

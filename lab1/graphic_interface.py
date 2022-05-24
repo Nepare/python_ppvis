@@ -6,6 +6,7 @@ from pygame.locals import *
 from valley import *
 from stored_plants import StoredPlant, VisualWarehouse
 from visual_garden import VisualPlant, VisualGarden
+from visual_events import VisualEffect, VisualStatusBar
 
 pygame.init()
 
@@ -16,6 +17,7 @@ FPS = pygame.time.Clock()
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 GREEN = (0, 255, 0)
+dragging_tool = ""
 
 DISPLAYSURF = pygame.display.set_mode((DISPLAY_WIDTH, DISPLAY_HEIGHT))
 DISPLAYSURF.fill(WHITE)
@@ -79,10 +81,12 @@ def draw_interface():
         draw_floor.topleft = (15 + i * 115, 510)
         DISPLAYSURF.blit(hardwood_texture, draw_floor)
 
+
 def next_turn():
     player.age_all()
     player.storage.export_warehouse()
     Events.start_disasters(player)
+    status_bar.import_effects(player)
     visual_warehouse.initial_import(player)
     visual_garden.initial_import(player)
 
@@ -97,6 +101,17 @@ def button_control():
     if 950 <= mouse_x <= 1190 and 505 + 195 <= mouse_y <= 505 + 195 + 90 and mouse_pressed:
         next_turn()
         pygame.draw.rect(DISPLAYSURF, GREEN, (950, 505 + 97.5 * 2, 1190 - 950, 90), 5)
+        button_pressed = True
+    global dragging_tool
+
+    if 950 <= mouse_x <= 1190 and 505 <= mouse_y <= 505 + 90 and mouse_pressed:
+        dragging_tool = "watering_can"
+        pygame.draw.rect(DISPLAYSURF, GREEN, (950, 505, 1190 - 950, 90), 5)
+        button_pressed = True
+
+    if 950 <= mouse_x <= 1190 and 505 + 97.5 <= mouse_y <= 505 + 97.5 + 90 and mouse_pressed:
+        dragging_tool = "hoe"
+        pygame.draw.rect(DISPLAYSURF, GREEN, (950, 505 + 97.5, 1190 - 950, 90), 5)
         button_pressed = True
 
     if 950 <= mouse_x <= 1070 and 10 <= mouse_y <= 130 and mouse_pressed:
@@ -179,14 +194,43 @@ def button_control():
     return button_pressed
 
 
+def drag_tool():
+    global dragging_tool
+    tool_image = pygame.image.load("lab1\\assets\\textures\\" + dragging_tool + ".png")
+    tool_box = tool_image.get_rect()
+    tool_box.center = pygame.mouse.get_pos()
+    DISPLAYSURF.blit(tool_image, tool_box)
+
+    point = pygame.mouse.get_pos()
+    mouse_pressed = pygame.mouse.get_pressed()[0]
+
+    if mouse_pressed:
+        for x in visual_garden.content:
+            collide = x.rect.collidepoint(point)
+            if collide:
+                index = visual_garden.content.index(x)
+                if dragging_tool == "watering_can":
+                    player.field.plants[index].is_droughted = False
+                    next_turn()
+                    dragging_tool = ""
+                if dragging_tool == "hoe":
+                    player.field.plants[index].weeded = False
+                    next_turn()
+                    dragging_tool = ""
+
+
 def gameloop():
     DISPLAYSURF.fill(WHITE)
     draw_interface()
-
     button_pressed = button_control()
 
+    status_bar.display_status_bar(DISPLAYSURF)
     visual_warehouse.display_warehouse(DISPLAYSURF)
     visual_garden.display_garden(DISPLAYSURF)
+
+    if dragging_tool != "":
+        drag_tool()
+
     pygame.display.update()
     if button_pressed:
         time.sleep(0.05)
@@ -196,6 +240,7 @@ def gameloop():
 player = GameMaster()
 visual_warehouse = VisualWarehouse()
 visual_garden = VisualGarden()
+status_bar = VisualStatusBar()
 
 player.import_plants()
 player.storage.import_warehouse()
